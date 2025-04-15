@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BunaVerse - Jelajahi Budaya Nusantara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #5f27cd;
+      --secondary-color: #341f97;
+      --background-color: #f8f9fa;
+      --card-color: #ffffff;
+      --text-color: #333;
+    }
+    body.dark-mode {
+      --background-color: #1e1e2f;
+      --card-color: #2c2c3a;
+      --text-color: #f8f8f8;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+    header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    header img {
+      height: 80px;
+      margin-right: 15px;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    .logo-container h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    nav a {
+      color: #ffffff;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #ffdd59;
+    }
+    .dark-toggle {
+      margin-left: 1.5rem;
+      background-color: var(--secondary-color);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://static.vecteezy.com/system/resources/previews/003/088/519/large_2x/indonesia-landmark-background-concept-free-vector.jpg') no-repeat center center / cover;
+      color: white;
+      height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .section {
+      background-color: var(--card-color);
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .feature {
+      background: var(--card-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .feature:hover {
+      transform: translateY(-5px);
+    }
+    .feature img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .demo-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .demo-button:hover {
+      background: var(--secondary-color);
+    }
+    footer {
+      background: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .popup-content {
+      background: white;
+      margin: 5% auto;
+      padding: 2rem;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 12px;
+      position: relative;
+      text-align: center;
+    }
+    .popup-content h4 {
+      margin-top: 0;
+    }
+    .popup-content iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .close-popup {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .features {
+        grid-template-columns: 1fr;
+      }
+      nav a {
+        margin-left: 1rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .section {
+        padding: 2rem 1rem;
+      }
+      .popup-content {
+        width: 95%;
+        padding: 1rem;
+      }
+      .logo-container h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+    function showPopup(title, url, description) {
+      document.getElementById('popup-title').innerText = title;
+      document.getElementById('popup-description').innerText = description;
+      document.getElementById('popup-frame').src = url;
+      document.getElementById('popup').style.display = 'block';
+    }
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('popup-frame').src = '';
+    }
+    window.onclick = function(event) {
+      const popup = document.getElementById('popup');
+      if (event.target === popup) {
+        closePopup();
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="images/budayaverse.png" alt="Logo BudayaVerse">
+      <h1>BunaVerse</h1>
+    </div>
+    <nav>
+      <a href="#tentang">Tentang</a>
+      <a href="#fitur">Fitur</a>
+      <a href="#kontak">Kontak</a>
+      <button class="dark-toggle" onclick="toggleDarkMode()">Mode Gelap</button>
+    </nav>
+  </header>
+  <section class="hero">
+    <div>
+      <h2>Jelajahi Kekayaan Budaya Nusantara di Dunia Virtual</h2>
+      <p>BunaVerse hadirkan pengalaman belajar budaya yang interaktif dan imersif untuk generasi masa depan.</p>
+    </div>
+  </section>
+  <section class="section" id="tentang">
+    <h3>Tentang BunaVerse</h3>
+    <p>BunaVerse adalah platform metaverse pendidikan budaya Indonesia yang dirancang untuk memperkenalkan, melestarikan, dan menguatkan nilai-nilai budaya lokal melalui teknologi imersif seperti 3D, AI, dan AR.</p>
+  </section>
+  <section class="section" id="fitur">
+    <h3>Fitur Unggulan</h3>
+    <div class="features">
+      <div class="feature">
+        <img src="https://i.pinimg.com/736x/82/4f/7d/824f7d72499f10c6cebb63bc1528fa7e.jpg" alt="Kampung Budaya">
+        <h4>Kampung Budaya Virtual</h4>
+        <p>Jelajahi desa adat seperti Baduy, Toraja, dan Bali secara virtual. Siswa dapat berinteraksi dengan lingkungan dan mempelajari kebudayaan melalui pengalaman 3D.</p>
+        <a href="https://youtu.be/KcJSPDnM9jk?si=S0B_aECZY3q9N6lv" target="_blank" class="demo-button">Coba Demo</a>
+      </div>
+      <div class="feature">
+        <img src="https://thumbs.dreamstime.com/b/game-education-vector-logo-design-console-graduation-cap-icon-252181400.jpg" alt="Cerita Interaktif">
+        <h4>Cerita Interaktif & Game Edukasi</h4>
+        <p>Mainkan kisah Timun Mas, Tangkuban Perahu, dan Danau Toba dalam bentuk permainan interaktif dan edukatif.</p>
+        <a href="https://wordwall.net/id/resource/19708537/musik/game-edukasi-budaya-indonesia" target="_blank" class="demo-button">Coba Demo</a>
+      </div>
+      <div class="feature">
+        <img src="https://static.vecteezy.com/system/resources/previews/008/418/024/large_2x/teamwork-people-in-business-working-together-concept-flat-illustration-vector.jpg" alt="Kolaborasi Komunitas">
+        <h4>Kolaborasi Komunitas</h4>
+        <p>Siswa dari berbagai daerah bisa berdiskusi dan bekerja sama dalam kegiatan budaya digital.</p>
+        <a href="https://ai.google.dev/showcase/rooms?hl=id" target="_blank" class="demo-button">Coba Demo</a>
+      </div>
+      <div class="feature">
+        <img src="https://static.vecteezy.com/system/resources/previews/010/826/542/original/the-concept-of-teaching-a-child-with-the-use-of-augmented-reality-boy-in-vr-glasses-illustration-in-a-flat-style-vector.jpg" alt="AR AI Pembelajaran">
+        <h4>AR & AI Pembelajaran</h4>
+        <p>Gunakan teknologi AR untuk menampilkan tarian tradisional. AI akan menjadi pemandu budaya virtual Anda.</p>
+        <a href="https://www.8thwall.com/" target="_blank" class="demo-button">Coba Demo</a>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="kontak">
+    <h3>Hubungi Kami</h3>
+    <p>Untuk kerja sama, demo, atau informasi lebih lanjut, hubungi kami di <a href="mailto:info@bunaverse.id">info@bunaverse.id</a></p>
+  </section>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close-popup" onclick="closePopup()">&times;</span>
+      <h4 id="popup-title">Judul</h4>
+      <p id="popup-description">Deskripsi fitur</p>
+      <iframe id="popup-frame" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2025 BunaVerse. Semua Hak Dilindungi.</p>
+  </footer>
+</body>
+</html>
